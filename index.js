@@ -3,8 +3,14 @@ import mongoose from "mongoose";
 import userRouter from "./routes/userRouter.js";
 import jwt from "jsonwebtoken";
 import productRouter from "./routes/productRouter.js";
+import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
+
+app.use(cors())
 
 app.use(express.json()) //act like middle man
 app.use(
@@ -34,7 +40,7 @@ app.use(
 
 
 
-const connectionString="mongodb+srv://admin:123@cluster0.sfeetsa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const connectionString = process.env.MONGO_URI;
 
 mongoose.connect(connectionString).then( 
     ()=>{
