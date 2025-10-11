@@ -21,7 +21,7 @@ app.use(
             
 
             
-            jwt.verify(token,"jwt-secret",      //decrypt the token
+            jwt.verify(token,process.env.JWT,      //decrypt the token
                 (err,decoded)=>{    
                     if(decoded== null){
                         res.json({

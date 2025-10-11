@@ -62,7 +62,7 @@ export function loginUser(req,res){
                             role: user.role,
                             isEmailVerified: user.isEmailVerified
                         },
-                        "jwt-secret"  //this is the key
+                        process.env.JWT  //this is the key
                     )
 
                     res.json(
