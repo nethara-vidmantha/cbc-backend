@@ -5,58 +5,63 @@ import jwt from "jsonwebtoken";
 import productRouter from "./routes/productRouter.js";
 import cors from "cors";
 import dotenv from "dotenv";
+import orderRouter from "./routes/orderRoute.js";
 
 dotenv.config();
 
-const app = express();
-
+const app = express()
 app.use(cors())
 
-app.use(express.json()) //act like middle man
+app.use(express.json())
+
 app.use(
     (req,res,next)=>{
-        let token = req.header("Authorization")
-        if(token!= null){
-            token =token.replace("Bearer ","")
-            
 
-            
-            jwt.verify(token,process.env.JWT,      //decrypt the token
-                (err,decoded)=>{    
-                    if(decoded== null){
+        let token = req.header("Authorization")
+
+        if(token != null){
+            token = token.replace("Bearer ","")
+            jwt.verify(token, process.env.JWT,
+                (err, decoded)=>{
+                    if(decoded == null){
                         res.json({
-                            message:"Invalid token please login agin"
+                            message: "Invalid token please login again"
                         })
                         return
                     }else{
-                        req.user = decoded  //meya ilagat ywn nisa userge details tika ywnw
+                        req.user = decoded
                     }
                 }
-            )  
+            )
+
         }
         next()
     }
 )
 
+const connectionString = process.env.MONGO_URI
 
 
-const connectionString = process.env.MONGO_URI;
-
-mongoose.connect(connectionString).then( 
+mongoose.connect(connectionString).then(
     ()=>{
-        console.log("Database connected successfully")
+        console.log("Database connected Successfully")
     }
 ).catch(
     ()=>{
         console.log("Database connection failed")
     }
-) 
+)
 
-app.use("/users",userRouter) 
-app.use("/products",productRouter)
 
-app.listen(5000,
+
+
+app.use("/api/users",userRouter)
+app.use("/api/products", productRouter)
+app.use("/api/orders", orderRouter)
+
+
+app.listen(5000, 
     ()=>{
-    console.log("Server is running on port 5000");    
+        console.log("Server is running on port 5000")
     }
-);
+)

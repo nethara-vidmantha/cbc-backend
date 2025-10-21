@@ -1,30 +1,30 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema(  
+const userSchema = new mongoose.Schema(
     {
-        email:{
+        email : {
             type : String,
             required : true,
-            unique : true,
+            unique : true
         },
-        firstName:{
+        firstName : {
             type : String,
             required : true
         },
-        lastName:{
+        lastName : {
             type : String,
             required : true
         },
-        password:{
+        password : {
             type : String,
             required : true
         },
-        role:{
+        role : {
             type : String,
             required : true,
             default : "user"
         },
-        isBlocked:{
+        isBlock: {
             type : Boolean,
             default : false
         },
@@ -32,13 +32,12 @@ const userSchema = new mongoose.Schema(
             type : Boolean,
             default : false
         },
-        image:{
+        image : {
             type : String,
-            default : "https://gravatar.com/avatar/"
+            default : "/user.png"
         }
     }
 )
 
 const User = mongoose.model("User",userSchema)
-
-export default User; 
+export default User

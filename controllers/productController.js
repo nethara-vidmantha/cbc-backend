@@ -1,58 +1,56 @@
-import Product from "../models/Product.js";
+import Product from "../models/product.js";
 import { isAdmin } from "./userController.js";
 
-export async function createProduct(req,res){
+export async function createProduct(req, res) {
 
     if(!isAdmin(req)){
         res.status(403).json({
-            message : "You are not authorized to create a product"
-        })
+            message: "You are not authorized to create a product"
+        });
         return;
     }
 
-    try{
-        const productData = req.body;
+	try {
+        
+		const productData = req.body;
 
-        const product = new Product(productData)
+		const product = new Product(productData);
 
-        await product.save();
+		await product.save();
 
-        res.json({
-            message: "Product created successfully",
-            product: product
-        })
-    }
-    catch(err){
-        console.log(err)
+		res.json({
+			message: "Product created successfully",
+			product: product,
+		});
+        
+	} catch (err) {
+        console.error(err);
         res.status(500).json({
-            message: "Failed to create product"
-        })
-    }
-    
+            message: "Failed to create product",
+        });
+	}
 }
 
 export async function getProducts(req,res){
-    try{
+    console.log("Fetching all products");
+    try {        
         const products = await Product.find()
-        res.json(products)
-    }
-    catch(err){
-        console.error(err)
+        res.json(products);
+    } catch (err) {
+        console.error(err);
         res.status(500).json({
-            message : "Failed to retrieve products"
-        })
+            message: "Failed to retrieve products",
+        });
     }
 }
 
-export async function deleteProduct(req,res) {
-
+export async function deleteProduct(req,res){
     if(!isAdmin(req)){
         res.status(403).json({
-            message : "You are not authorized to delete a product "
-        })
+            message: "You are not authorized to delete a product"
+        });
         return;
     }
-    
     try{
 
         const productID = req.params.productID
@@ -63,49 +61,46 @@ export async function deleteProduct(req,res) {
         })
 
         res.json({
-            message : "Product deleted successfully"
-        })
-    }
-    catch(err){
-        console.error(err)
+            message: "Product deleted successfully"
+        });
+    }catch(err){
+        console.error(err);
         res.status(500).json({
-            message : "Failed to delete product"
-        })
-
+            message: "Failed to delete product",
+        });
     }
 }
 
-export async function updateProduct(req,res) {
-
+export async function updateProduct(req,res){
     if(!isAdmin(req)){
         res.status(403).json({
-            message : "You are not authorized to delete a product "
-        })
+            message: "You are not authorized to update a product"
+        });
         return;
     }
 
     try{
         const productID = req.params.productID;
-        const updateData = req.body;
+
+        const updatedData = req.body;
 
         await Product.updateOne(
             {productID : productID},
-            updateData
+            updatedData
         );
-        
+
         res.json({
-            message : "Product update successfully"
+            message: "Product updated successfully"
         });
-    }
-    catch(err){
-        console.error(err)
+    }catch(err){
+        console.error(err);
         res.status(500).json({
-            message : "Failed to update product"
-        })
+            message: "Failed to update product",
+        });
     }
 }
 
-export async function getProductId(req,res) {
+export async function getProductId(req,res){
     try{
         const productID = req.params.productID;
 
@@ -114,18 +109,17 @@ export async function getProductId(req,res) {
                 productID : productID
             }
         )
-        if(product==null){
+        if(product == null){
             res.status(404).json({
-                message : "Product not found"
+                message: "Product not found"
             });
         }else{
             res.json(product);
         }
-
     }catch(err){
         console.error(err);
         res.status(500).json({
-            message : "Failed to retrive product by ID"
-        })
+            message: "Failed to retrieve product by ID",
+        });
     }
 }
