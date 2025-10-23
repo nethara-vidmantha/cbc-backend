@@ -73,7 +73,7 @@ export function loginUser(req, res) {
 						isEmailVerified: user.isEmailVerified,
 						image: user.image,
 					},
-					process.env.JWT_SECRET
+					process.env.JWT
 				);
 
 				res.json({
@@ -175,7 +175,7 @@ export async function googleLogin(req, res) {
 					isEmailVerified: savedUser.isEmailVerified,
 					image: savedUser.image,
 				},
-				process.env.JWT_SECRET
+				process.env.JWT
 			);
 			res.json({
 				message: "Login successful",
@@ -207,7 +207,7 @@ export async function googleLogin(req, res) {
 					isEmailVerified: user.isEmailVerified,
 					image: user.image,
 				},
-				process.env.JWT_SECRET
+				process.env.JWT
 			);
 			res.json({
 				message: "Login successful",
