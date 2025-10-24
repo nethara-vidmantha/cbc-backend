@@ -1,5 +1,6 @@
 import express from 'express';
 import { blockOrUnblockUser, changePasswordViaOTP, createUser, getAllUsers, getUser, googleLogin, loginUser, sendOTP } from '../controllers/userController.js';
+import { use } from 'react';
 
 
 const userRouter = express.Router();
@@ -12,5 +13,7 @@ userRouter.get("/all-users", getAllUsers)
 userRouter.put("/block/:email",blockOrUnblockUser)
 userRouter.get("/send-otp/:email",sendOTP)
 userRouter.post("/change-password/",changePasswordViaOTP)
+userRouter.put("/me",updateUserData)
+userRouter.put("/me/password",updatePassword)
 
 export default userRouter;
