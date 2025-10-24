@@ -1,6 +1,5 @@
 import express from 'express';
 import { blockOrUnblockUser, changePasswordViaOTP, createUser, getAllUsers, getUser, googleLogin, loginUser, sendOTP } from '../controllers/userController.js';
-import { use } from 'react';
 
 
 const userRouter = express.Router();
