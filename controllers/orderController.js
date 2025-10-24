@@ -1,5 +1,5 @@
 import Order from "../models/order.js";
-import Product from "../models/product.js";
+import Product from "../models/Product.js";
 import { isAdmin, isCustomer } from "./userController.js";
 
 export async function createOrder(req, res) {
