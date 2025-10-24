@@ -1,5 +1,5 @@
 import express from 'express';
-import { blockOrUnblockUser, changePasswordViaOTP, createUser, getAllUsers, getUser, googleLogin, loginUser, sendOTP } from '../controllers/userController.js';
+import { blockOrUnblockUser, changePasswordViaOTP, createUser, getAllUsers, getUser, googleLogin, loginUser, sendOTP, updatePassword, updateUserData } from '../controllers/userController.js';
 
 
 const userRouter = express.Router();
